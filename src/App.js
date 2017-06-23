@@ -1,19 +1,149 @@
 import React, { Component } from 'react';
-import Layout from './Layout';
-import Counter from './Counter';
+import VacancyShort from "./Components/VacancyShort";
+import Filter from "./Components/Filter";
+import axios from "axios";
+import { Layout, Breadcrumb, Pagination, Card } from 'antd';
+const { Header, Content, Footer } = Layout;
+import Loader from "./Components/Loader";
+import {Link} from "react-router";
 
-// If you use React Router, make this component
-// render <Router> with your routes. Currently,
-// only synchronous routes are hot reloaded, and
-// you will see a warning from <Router> on every reload.
-// You can ignore this warning. For details, see:
-// https://github.com/reactjs/react-router/issues/2182
 export default class App extends Component {
-  render() {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      loading: true,
+      current: 1,
+      pageSize: 5,
+
+      filterCities: []
+    };
+    this.getData=this.getData.bind(this);
+  }
+
+
+  getData(){
+    const today = new Date();
+    const Month = (today.getMonth()+1).toString();
+    const curMonth = Month.length>1?Month:`0${Month}`;
+    const curDate = `${today.getFullYear()}-${curMonth}-${today.getDate()}`;
+    axios.get('https://api.hh.ru/vacancies/', {
+      params: {
+        date_from: curDate
+      }
+    })
+      .then(response => {
+        this.setState({
+          data: response.data.items,
+          filteredData: response.data.items,
+          loading: false,
+          total: response.data.items.length,
+          currentData: response.data.items.filter((item, index) => index < this.state.pageSize),
+          cities: this.getCities(response.data.items)
+        });
+        return response;
+      })
+
+  }
+
+  getCities = items => {
+    let cities = [];
+    items.forEach(item => {
+      cities.every(city => city !== item.area.name) && cities.push(item.area.name);
+    });
+    return cities;
+  };
+
+  onChange = page =>{
+    const { filteredData, pageSize } = this.state;
+    const from = (page-1)*pageSize;
+    console.log("from:", from);
+    const currentData = filteredData.filter((item, index) => index >= from && index < from + pageSize);
+    this.setState({
+      current: page,
+      currentData
+    })
+
+  };
+
+  componentDidMount(){
+    this.getData();
+  }
+
+  renderLoading() {
     return (
-      <Layout>
-        <Counter />
+      <Loader/>
+    )
+  }
+  onCityFilterChange = value => {
+    console.log("filter changed:", value);
+    this.setState({
+      filteredData: this.filterData(this.state.data, value),
+      filterCities: value,
+      total: this.filterData(this.state.data, value).length,
+      currentData: this.filterData(this.state.data, value).filter((item, index) => index < this.state.pageSize)
+    });
+  };
+
+  filterData = (data, cities) => {
+    console.log("state data: ", data);
+    return cities.length
+      ? data.filter(item => cities.some(city => item.area.name === city))
+      : data;
+  };
+
+  renderData = () => {
+    const { currentData, pageSize, current, total, cities } = this.state;
+    return (
+      <Layout className="layout">
+        <Header>
+          <div className="logo">
+            <img src="https://image.freepik.com/free-icon/no-translate-detected_318-61780.jpg" alt=""/>
+          </div>
+        </Header>
+        <Content style={{ padding: '0 50px' }}>
+          <div className="data-wrapper">
+            <Breadcrumb style={{ margin: '12px 0' }}>
+              <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
+              <Breadcrumb.Item>List</Breadcrumb.Item>
+              <Breadcrumb.Item>App</Breadcrumb.Item>
+            </Breadcrumb>
+            <Card>
+              <Filter cities={cities} onCityFilterChange={this.onCityFilterChange}/>
+            </Card>
+            {
+              currentData.map((item, index)=>(
+                <div key={index} className="card-wrap">
+                  <VacancyShort item={item}/>
+                </div>
+              ))
+            }
+            <Pagination
+              showQuickJumper
+              total={total}
+              onChange={this.onChange}
+              current={current}
+              pageSize={pageSize}
+            />
+          </div>
+        </Content>
+        <Footer style={{ textAlign: 'center' }}>
+          Ant Design ©2016 Created by Ant UED
+        </Footer>
       </Layout>
+    );
+  };
+
+  render() {
+    const { loading } = this.state;
+    return (
+      <div className="wrapper">
+        {
+          !loading ?
+            (<div>{this.renderData()}</div>) :
+            (<div>{this.renderLoading()}</div>)
+        }
+      </div>
     );
   }
 }
