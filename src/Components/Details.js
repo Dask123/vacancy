@@ -56,7 +56,7 @@ export default class Details extends Component {
             <div dangerouslySetInnerHTML={(() => {return {__html: this.state.data.description}})()}/>
             <p><b>Тип занятости:</b><br/> {this.state.data.employment.name}</p>
             <p><b>Опыт работы:</b><br/> {this.state.data.experience.name}</p>
-            <p><b>Заработная плата:</b><br/> от {this.state.data.salary.from} рублей</p>
+            <p><b>Заработная плата:</b><br/>{this.state.data.salary===null?"Договорная":this.state.data.salary.from===null?"Договорная":`от ${this.state.data.salary.from} рублей`}</p>
             <p><b>График:</b><br/>{this.state.data.schedule.name}</p>
             <p><b>Регион:</b><br/> {this.state.data.area.name}</p>
             <p><b>Компания:</b><br/>{this.state.data.employer.name}</p>
