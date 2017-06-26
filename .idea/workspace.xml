@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3cae9cb8-64ad-4a07-bea1-c6cc42f2a39b" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="3cae9cb8-64ad-4a07-bea1-c6cc42f2a39b" name="Default" comment="Ещё коммит">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -88,7 +88,7 @@
         <entry file="file://$PROJECT_DIR$/src/Components/Filter.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="323">
-              <caret line="19" column="3" lean-forward="true" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
+              <caret line="19" column="3" lean-forward="false" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
                 <marker date="1498467858102" expanded="true" signature="195:459" ph="..." />
@@ -267,9 +267,9 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
+    <property name="last_opened_file_path" value="$USER_HOME$/Documents/vacancy-next" />
     <property name="HbShouldOpenHtmlAsHb" value="" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.smartKeys" />
+    <property name="settings.editor.selected.configurable" value="settings.github" />
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -398,7 +398,7 @@
       <workItem from="1498242099546" duration="2288000" />
       <workItem from="1498249821258" duration="9574000" />
       <workItem from="1498458026537" duration="3146000" />
-      <workItem from="1498500137516" duration="2159000" />
+      <workItem from="1498500137516" duration="3705000" />
     </task>
     <task id="LOCAL-00001" summary="Фильтр по городу">
       <created>1498257858865</created>
@@ -421,11 +421,18 @@
       <option name="project" value="LOCAL" />
       <updated>1498501385005</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Ещё коммит">
+      <created>1498502677117</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1498502677117</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="51841000" />
+    <option name="totallyTimeSpent" value="53387000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1616" height="876" extended-state="6" />
@@ -939,7 +946,7 @@
     <entry file="file://$PROJECT_DIR$/src/Components/Filter.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
-          <caret line="19" column="3" lean-forward="true" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
+          <caret line="19" column="3" lean-forward="false" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
           <folding>
             <element signature="e#0#41#0" expanded="true" />
             <marker date="1498467858102" expanded="true" signature="195:459" ph="..." />
