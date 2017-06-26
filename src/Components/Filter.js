@@ -6,7 +6,6 @@ const Option = Select.Option;
 const Filter = ({ cities, onCityFilterChange }) => {
   return (
     <div className="filter">
-      FILTER
       <Select
         mode="multiple"
         style={{width: '100%'}}
