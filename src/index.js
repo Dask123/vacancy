@@ -8,21 +8,22 @@ import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools  } from 'redux-devtools-extension';
 
-import Root from "./Route/Root";
-import "./Style/style.css";
+import Root from './Route/Root';
+import './Style/style.css';
 
 const initialState = [];
-const vacancies = (state=initialState) => {
-  console.log(state);
-  return state;
+const reducer = (state=initialState, action) => {
+  if(action.type === 'FETCH_DATA_SUCCESS'){
+    return [
+      ...state,
+      action.payload
+    ]
+  }
 };
 
-const store = createStore(vacancies, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
 const rootEl = document.getElementById('root');
 
-store.subscribe(()=>{
-  console.log(store.getState);
-});
 
 const renderApp = () => {
   render(

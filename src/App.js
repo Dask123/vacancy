@@ -44,7 +44,7 @@ export class App extends Component {
           currentData: response.data.items.filter((item, index) => index < this.state.pageSize),
           cities: this.getCities(response.data.items)
         });
-        onGetData();
+        this.props.onGetData(this.state.data);
         return response;
       })
 
@@ -158,17 +158,12 @@ export default connect (
     testStore: state
   }),
   dispatch => ({
-    onGetData: () => {
-      const asyncGetData = () => {
-        return dispatch=>{
-          console.log('GotData');
+    onGetData: (data) => {
+      console.log('Got data');
           dispatch({
             type: 'FETCH_DATA_SUCCESS',
-            payload: this.state
+            payload: data
           })
-        }
-      };
-      dispatch(asyncGetData());
     }
   })
 )(App);
