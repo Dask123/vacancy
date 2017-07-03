@@ -1,19 +1,39 @@
 import { AppContainer } from 'react-hot-loader';
 import React from 'react';
 import {render} from 'react-dom';
-import "./Style/style.css";
 import { LocaleProvider } from "antd";
 import ruRU from 'antd/lib/locale-provider/ru_RU';
-import Root from "./Route/Root";
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools  } from 'redux-devtools-extension';
 
+import Root from "./Route/Root";
+import "./Style/style.css";
+
+const initialState = [];
+const vacancies = (state=initialState) => {
+  console.log(state);
+  return state;
+};
+
+const store = createStore(vacancies, composeWithDevTools(applyMiddleware(thunk)));
 const rootEl = document.getElementById('root');
+
+store.subscribe(()=>{
+  console.log(store.getState);
+});
+
 const renderApp = () => {
   render(
-    <LocaleProvider locale={ruRU}>
-      <AppContainer>
-        <Root/>
-      </AppContainer>
-    </LocaleProvider>,
+
+    <Provider store={store}>
+      <LocaleProvider locale={ruRU}>
+        <AppContainer>
+          <Root/>
+        </AppContainer>
+      </LocaleProvider>
+    </Provider>,
     rootEl
   );
 }
