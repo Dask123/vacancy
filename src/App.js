@@ -6,8 +6,9 @@ import { Layout, Breadcrumb, Pagination, Card } from 'antd';
 const { Header, Content, Footer } = Layout;
 import Loader from "./Components/Loader";
 import {Link} from "react-router";
+import { connect } from 'react-redux';
 
-export default class App extends Component {
+export class App extends Component {
 
   constructor(props){
     super(props);
@@ -26,7 +27,9 @@ export default class App extends Component {
     const today = new Date();
     const Month = (today.getMonth()+1).toString();
     const curMonth = Month.length>1?Month:`0${Month}`;
-    const curDate = `${today.getFullYear()}-${curMonth}-${today.getDate()}`;
+    const Day = (today.getDate()).toString();
+    const curDay = Day.length>1?Day:`0${Day}`;
+    const curDate = `${today.getFullYear()}-${curMonth}-${curDay}`;
     axios.get('https://api.hh.ru/vacancies/', {
       params: {
         date_from: curDate
@@ -41,10 +44,12 @@ export default class App extends Component {
           currentData: response.data.items.filter((item, index) => index < this.state.pageSize),
           cities: this.getCities(response.data.items)
         });
+        onGetData();
         return response;
       })
 
   }
+
 
   getCities = items => {
     let cities = [];
@@ -147,3 +152,23 @@ export default class App extends Component {
     );
   }
 }
+
+export default connect (
+  state => ({
+    testStore: state
+  }),
+  dispatch => ({
+    onGetData: () => {
+      const asyncGetData = () => {
+        return dispatch=>{
+          console.log('GotData');
+          dispatch({
+            type: 'FETCH_DATA_SUCCESS',
+            payload: this.state
+          })
+        }
+      };
+      dispatch(asyncGetData());
+    }
+  })
+)(App);
