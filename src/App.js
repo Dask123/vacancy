@@ -36,17 +36,18 @@ export class App extends Component {
       }
     })
       .then(response => {
-        this.setState({
-          data: response.data.items,
-          filteredData: response.data.items,
-          loading: false,
-          total: response.data.items.length,
-          currentData: response.data.items.filter((item, index) => index < this.state.pageSize),
-          cities: this.getCities(response.data.items)
-        });
-        this.props.onGetData(this.state.data);
-        return response;
-      })
+      this.props.onGetData(response.data.items);
+      console.log(this.props);
+      this.setState({
+        filteredData: this.props.appStore.data,
+        loading: false,
+        total: this.props.appStore.data.length,
+        currentData: this.props.appStore.data.filter((item, index) => index < this.state.pageSize),
+        cities: this.getCities(this.props.appStore.data),
+        data: this.props.appStore.data
+      });
+      return response;
+    })
 
   }
 
@@ -110,8 +111,6 @@ export class App extends Component {
           <div className="data-wrapper">
             <Breadcrumb style={{ margin: '12px 0' }}>
               <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-              <Breadcrumb.Item>List</Breadcrumb.Item>
-              <Breadcrumb.Item>App</Breadcrumb.Item>
             </Breadcrumb>
             <Card>
               <Filter cities={cities} onCityFilterChange={this.onCityFilterChange}/>
@@ -155,11 +154,10 @@ export class App extends Component {
 
 export default connect (
   state => ({
-    testStore: state
+    appStore: state
   }),
   dispatch => ({
     onGetData: (data) => {
-      console.log('Got data');
           dispatch({
             type: 'FETCH_DATA_SUCCESS',
             payload: data

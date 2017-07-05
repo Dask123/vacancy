@@ -49,7 +49,6 @@ export default class Details extends Component {
         <div className="data-wrapper">
           <Breadcrumb style={{ margin: '12px 0' }}>
             <Breadcrumb.Item><Link to="/">Home</Link></Breadcrumb.Item>
-            <Breadcrumb.Item>List</Breadcrumb.Item>
             <Breadcrumb.Item>App</Breadcrumb.Item>
           </Breadcrumb>
           <Card title={this.state.data.name}>

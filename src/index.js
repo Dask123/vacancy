@@ -10,18 +10,9 @@ import { composeWithDevTools  } from 'redux-devtools-extension';
 
 import Root from './Route/Root';
 import './Style/style.css';
+import { dataReducer } from './Reducers/reducer'
 
-const initialState = [];
-const reducer = (state=initialState, action) => {
-  if(action.type === 'FETCH_DATA_SUCCESS'){
-    return [
-      ...state,
-      action.payload
-    ]
-  }
-};
-
-const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+const store = createStore(dataReducer, composeWithDevTools(applyMiddleware(thunk)));
 const rootEl = document.getElementById('root');
 
 
